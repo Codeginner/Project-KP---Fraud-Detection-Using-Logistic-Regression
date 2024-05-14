@@ -1,2 +1,2 @@
 # Project-KP---Fraud-Detection-Using-Logistic-Regression
-added soon
+will working on several error soon :D
