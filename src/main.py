@@ -12,7 +12,7 @@ import joblib
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load the dataset
-df = pd.read_csv('creditcard.csv')
+df = pd.read_csv("C:\python\projek kp\creditcard.csv")
 
 # Preprocess the dataset
 rbs = RobustScaler()
@@ -63,9 +63,12 @@ y_train = new_df['Class']
 #rbs.fit(X_train)
 
 # Save and load the trained model to a file
-model_filename = 'credit_card_fraud_model.pkl'
-model = joblib.load(model_filename)
+model_filename = "C:\python\projek kp\credit_card_fraud_model.pkl"
 
+model = LogisticRegression()
+model.fit(X_train, y_train)
+joblib.dump(model, "credit_card_fraud_model.pkl")
+model = joblib.load("credit_card_fraud_model.pkl")
 
 st.subheader("Balanced Classification Report")
 # Perform prediction on the test set
