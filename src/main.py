@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import joblib
 
 # Disable the warning for deprecated use of pyplot global object
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Load the dataset
 df = pd.read_csv("C:\python\projek kp\creditcard.csv")
@@ -31,14 +31,15 @@ st.dataframe(df.describe())
 
 # Display jointplot of 'scaled_amount' vs. 'Class'
 st.subheader("Jointplot")
-sns.jointplot(x='scaled_amount', y='Class', data=df)
-st.pyplot()
+jointplot = sns.jointplot(x='scaled_amount', y='Class', data=df)
+st.pyplot(jointplot.fig)
 
 # Display countplot of original dataset 'Class'
 st.subheader("Original Class Distribution")
 class_order = [0, 1]
-sns.countplot(x='Class', data=df, order=class_order)
-st.pyplot()
+fig, ax = plt.subplots()
+sns.countplot(x='Class', data=df, order=class_order, ax=ax)
+st.pyplot(fig)
 
 # Create a balanced dataset with 50/50 Class distribution
 non_fraud = df[df['Class'] == 0]
@@ -143,6 +144,7 @@ if st.button("Check Transaction"):
         # Plot Logistic Regression curve
         x_vals = np.linspace(-10, 10, 1000)
         y_vals = 1 / (1 + np.exp(-x_vals))
+        fig, ax = plt.subplots(figsize=(8, 6))
         plt.plot(x_vals, y_vals)
         plt.xlabel("z (Logit)")
         plt.ylabel("Probability")
@@ -151,4 +153,4 @@ if st.button("Check Transaction"):
         plt.axhline(y=probabilities[0][1], color='g', linestyle='--', label='Probability of being Fraud')
         plt.axhline(y=probabilities[0][0], color='b', linestyle='--', label='Probability of being Non-Fraud')
         plt.legend()
-        st.pyplot()
+        st.pyplot(fig)
